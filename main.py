@@ -122,6 +122,13 @@ def kmeans(data, clusters):
     km = KMeans(n_clusters=clusters, init='random', n_init=10, max_iter=2000, tol=1e-2)
     y_km = km.fit_predict(pc_df)
 
+    print(pc_df.shape)
+    print(len(y_km))
+
+    return pc_df, y_km, km
+
+
+def plot_clusters(data, pc_df, y_km, km):
     # Print players in each cluster
     players_grouped = [[], [], [], [], [], [], [], [], [], []]
     major_players = [[], [], [], [], [], [], [], [], [], []]
@@ -181,4 +188,7 @@ if __name__ == '__main__':
     reg_analysis(player_data)
 
     # K-means clustering to group players' playing styles based on stats
-    kmeans(player_data, 10)
+    pc_df, clust_num, km_obj = kmeans(player_data, 10)
+
+    # Plot the clusters from the k-means algorithm
+    plot_clusters(player_data, pc_df, clust_num, km_obj)
